@@ -1,4 +1,9 @@
-//Program to find soil moisture level using generic capacitive soil sensor (3 Pins)
+/*
+Find soil moisture level using generic capacitive moisture sensor (3 Pins)
+https://www.clevertronics.blogspot.com
+Used Hardware : ESP32 by ESPRESSIF SYSTEMS
+Used IDE : Arduino IDE 1.8.12
+*/
 
 const int AirValue = 0;   //Replace this value with ADC value when probe is in air(Val_1).
 const int WaterValue = 3100;  //Replace this with ADC value when probe is fully dipped in water(Val_2).
