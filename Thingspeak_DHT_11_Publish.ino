@@ -1,3 +1,9 @@
+/*Sending Digital Temperature and Humidity(DHT11) sensor's data to Mathworks Thingspeak!
+https://www.clevertronics.blogspot.com
+Used Hardware : ESP8266 (NodeMCU)
+Used IDE : Arduino IDE 1.8.12
+*/
+
 #include <DHT.h>
 #include <DHT_U.h>
 
@@ -5,13 +11,13 @@
 
 #include <ESP8266WiFi.h>
  
-String apiKey = "LM7O5YEWP5DHGEJB";     //  Enter your Write API key from ThingSpeak
+String apiKey = "LM7O5YEWP5DHxxxx";     //  Enter your Write API key from ThingSpeak after channel setup.
 
-const char *ssid =  "Xiaomi_BE1D";     // replace with your wifi ssid and wpa2 key
-const char *pass =  "saipg@2020";
+const char *ssid =  "Your_SSID";     // replace with your wifi ssid and pass key.
+const char *pass =  "Your_Password";
 const char* server = "api.thingspeak.com";
 
-#define DHTPIN 0          //pin where the dht11 is connected
+#define DHTPIN 0          //pin where the dht11 is connected. 
  
 DHT dht(DHTPIN, DHT11);
 
@@ -23,9 +29,10 @@ void setup()
        delay(10);
        dht.begin();
  
-       Serial.println("Connecting to ");
-       Serial.println(ssid);
+ //Network initialisation and connection.
  
+       Serial.println("Connecting......");
+       Serial.println(ssid);
  
        WiFi.begin(ssid, pass);
  
@@ -35,7 +42,7 @@ void setup()
             Serial.print(".");
      }
       Serial.println("");
-      Serial.println("WiFi connected");
+      Serial.println("WiFi connected!");
  
 }
  
@@ -51,7 +58,7 @@ void loop()
                       return;
                  }
 
-                         if (client.connect(server,80))   //   "184.106.153.149" or api.thingspeak.com
+                         if (client.connect(server,80))   // "184.106.153.149" or api.thingspeak.com
                       {  
                             
                              String postStr = apiKey;
@@ -81,6 +88,6 @@ void loop()
  
           Serial.println("Waiting...");
   
-  // thingspeak needs minimum 15 sec delay between updates
-  delay(1000);
+  // Thingspeak takes minimum 15seconds delay between updates(for free subscription).
+  delay(15000);
 }
