@@ -1,3 +1,10 @@
+/*
+Simple 0 to 9 counter with 7 segment display!
+https://www.clevertronics.blogspot.com
+Used Hardware : Arduino UNO
+Used IDE : Arduino IDE 1.8.12
+*/
+
 #include "SevSeg.h"
 SevSeg sevseg; 
 
