@@ -1,2 +1,2 @@
 # Arduino-Projects
-Here are set of some intresting projects executed with Arduino hardware and ESPRESSIF SoC chipsets.
+Here are set of some interesting projects executed with Arduino hardware and ESPRESSIF SoC chipsets.
