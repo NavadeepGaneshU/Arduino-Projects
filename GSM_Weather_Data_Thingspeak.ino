@@ -1,3 +1,10 @@
+/*
+Send Temperature data to Thingspeak using SIM800 GSM and Arduino UNO.
+https://www.clevertronics.blogspot.com
+Used Hardware : Arduino UNO, SIM800 GSM MODULE.
+Used IDE : Arduino IDE 1.8.12
+*/
+
 #include <SoftwareSerial.h>
 SoftwareSerial gprsSerial(2,3);
 
@@ -10,8 +17,8 @@ DHT dht(DHTPIN, DHT11);
  
 void setup()
 {
-  gprsSerial.begin(9600);               // the GPRS baud rate   
-  Serial.begin(9600);    // the GPRS baud rate 
+  gprsSerial.begin(9600); // the GPRS baud rate 
+  Serial.begin(9600);    
   dht.begin();
 
   delay(1000);
@@ -19,7 +26,7 @@ void setup()
  
 void loop()
 {
-      float h = dht.readHumidity();
+      float h = dht.readHumidity();  //acquire data from sensor with dht library.
       float t = dht.readTemperature(); 
       delay(100);   
          
@@ -34,7 +41,7 @@ void loop()
   if (gprsSerial.available())
     Serial.write(gprsSerial.read());
 
-  gprsSerial.println("AT");
+  gprsSerial.println("AT");     //AT commands used for GSM.
   delay(1000);
 
   gprsSerial.println("AT+CPIN?");
@@ -57,17 +64,17 @@ void loop()
  
   ShowSerialData();
  
-  gprsSerial.println("AT+CSTT=\"airtelmms.com\"");//start task and setting the APN,
-  delay(1000);
+  gprsSerial.println("AT+CSTT=\"airtelmms.com\""); //start task and setting the APN. 
+  delay(1000);                                     // APN is network service provider specefic.
  
   ShowSerialData();
  
-  gprsSerial.println("AT+CIICR");//bring up wireless connection
+  gprsSerial.println("AT+CIICR");              //bring up wireless connection
   delay(3000);
  
   ShowSerialData();
  
-  gprsSerial.println("AT+CIFSR");//get local IP adress
+  gprsSerial.println("AT+CIFSR");          
   delay(2000);
  
   ShowSerialData();
@@ -77,29 +84,29 @@ void loop()
  
   ShowSerialData();
   
-  gprsSerial.println("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",\"80\"");//start up the connection
+  gprsSerial.println("AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",\"80\"");       //start up the Thingspeak connection
   delay(6000);
  
   ShowSerialData();
  
-  gprsSerial.println("AT+CIPSEND");//begin send data to remote server
+  gprsSerial.println("AT+CIPSEND");
   delay(4000);
   ShowSerialData();
   
-  String str="GET https://api.thingspeak.com/update?api_key=EEJWSA6UZ6XH7HP8&field1=" + String(t) +"&field2="+String(h);
+  String str="GET https://api.thingspeak.com/update?api_key=EEJWSAXXXXXXXX&field1=" + String(t) +"&field2="+String(h); //enter your Thingspeak API key.
   Serial.println(str);
-  gprsSerial.println(str);//begin send data to remote server
+  gprsSerial.println(str);
   
   delay(4000);
   ShowSerialData();
 
-  gprsSerial.println((char)26);//sending
-  delay(5000);//waitting for reply, important! the time is base on the condition of internet 
+  gprsSerial.println((char)26);
+  delay(5000); 
   gprsSerial.println();
  
   ShowSerialData();
  
-  gprsSerial.println("AT+CIPSHUT");//close the connection
+  gprsSerial.println("AT+CIPSHUT");
   delay(100);
   ShowSerialData();
 } 
