@@ -2,13 +2,13 @@
 #include <Servo.h>               
 #include <NewPing.h>      
 
-#define TRIG_PIN A0 // Pin A0 on the Motor Drive Shield soldered to the ultrasonic sensor
-#define ECHO_PIN A1 // Pin A1 on the Motor Drive Shield soldered to the ultrasonic sensor
-#define MAX_DISTANCE 300 // sets maximum useable sensor measuring distance to 300cm
-#define MAX_SPEED 160 // sets speed of DC traction motors to 150/250 or about 70% of full speed - to get power drain down.
-#define MAX_SPEED_OFFSET 40 // this sets offset to allow for differences between the two DC traction motors
-#define COLL_DIST 30 // sets distance at which robot stops and reverses to 30cm
-#define TURN_DIST COLL_DIST+20 // sets distance at which robot veers away from object
+#define TRIG_PIN A0                 // Pin A0 on the Motor Drive Shield soldered to the ultrasonic sensor
+#define ECHO_PIN A1                 // Pin A1 on the Motor Drive Shield soldered to the ultrasonic sensor
+#define MAX_DISTANCE 300            // sets maximum useable sensor measuring distance to 300cm
+#define MAX_SPEED 160               // sets speed of DC traction motors to 150/250 or about 70% of full speed - to get power drain down.
+#define MAX_SPEED_OFFSET 40         // this sets offset to allow for differences between the two DC traction motors
+#define COLL_DIST 30                // sets distance at which robot stops and reverses to 30cm
+#define TURN_DIST COLL_DIST+20      // sets distance at which robot veers away from object
 NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE); // sets up sensor library to use the correct pins to measure distance.
 
 AF_DCMotor leftMotor1(1, MOTOR12_1KHZ); 
@@ -22,13 +22,15 @@ int curDist = 0;
 String motorSet = "";
 int speedSet = 0;
 
-void setup() {
+void setup() 
+{
   myservo.attach(10);  // attaches the servo on pin 10 (SERVO_1 on the Motor Drive Shield to the servo object 
   myservo.write(90); // tells the servo to position at 90-degrees ie. facing forward.
   delay(1000); // delay for one seconds
  }
  
-void loop() {
+void loop() 
+{
   myservo.write(90);  // move eyes forward
   delay(90);
   curDist = readPing();   // read distance
@@ -38,7 +40,8 @@ void loop() {
  }
 
 
-void changePath() {
+void changePath() 
+{
   moveStop();   // stop forward movement
   myservo.write(36);  // check distance to the right
     delay(500);
@@ -73,7 +76,8 @@ void compareDistance()
 
 
 
-int readPing() { 
+int readPing() 
+{ 
   delay(70);   
   unsigned int uS = sonar.ping();
   int cm = uS/US_ROUNDTRIP_CM;
@@ -82,7 +86,8 @@ int readPing() {
 
 void moveStop() {leftMotor1.run(RELEASE); leftMotor2.run(RELEASE); rightMotor1.run(RELEASE); rightMotor2.run(RELEASE);}  // stop the motors.
 
-void moveForward() {
+void moveForward() 
+{
     motorSet = "FORWARD";
     leftMotor1.run(FORWARD);    
     leftMotor2.run(FORWARD);      
@@ -98,7 +103,8 @@ void moveForward() {
   }
 }
 
-void moveBackward() {
+void moveBackward() 
+{
     motorSet = "BACKWARD";
     leftMotor1.run(BACKWARD);     
     leftMotor2.run(BACKWARD);    
@@ -114,7 +120,8 @@ void moveBackward() {
   }
 }  
 
-void turnRight() {
+void turnRight() 
+{
   motorSet = "RIGHT";
   leftMotor1.run(FORWARD);     
   leftMotor2.run(FORWARD);     
@@ -130,7 +137,8 @@ void turnRight() {
   rightMotor2.run(FORWARD);      
 }  
 
-void turnLeft() {
+void turnLeft() 
+{
   motorSet = "LEFT";
   leftMotor1.run(BACKWARD);     
   leftMotor2.run(BACKWARD);     
@@ -146,7 +154,8 @@ void turnLeft() {
   rightMotor2.run(FORWARD);     
 }  
 
-void turnAround() {
+void turnAround() 
+{
   motorSet = "RIGHT";
   leftMotor1.run(FORWARD);      
   leftMotor2.run(FORWARD);    
