@@ -12,8 +12,8 @@ Used IDE : Arduino IDE 1.8.12
 
 char auth[] = "xxxxxxxxxxxxxxx-xxxxx"; //Enter the Auth code which was send by Blink
 
-char ssid[] = "Your_SSID";  //Enter your WIFI Name
-char pass[] = "Your_Password";  //Enter your WIFI Password
+char ssid[] = "Your_SSID";  //Enter your WIFI name
+char pass[] = "Your_Password";  //Enter your WIFI password
 
 #define DHTPIN 2          // Digital pin 4
 
@@ -32,6 +32,7 @@ void sendSensor()
     return;
   }
  
+  //user defined and customizable.
   Blynk.virtualWrite(V5, h);  //V5 is for Humidity
   Blynk.virtualWrite(V6, t);  //V6 is for Temperature
 }
