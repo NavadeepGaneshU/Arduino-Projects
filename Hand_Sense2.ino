@@ -1,3 +1,9 @@
+/* Program to control hand sanatizer system using IR hand detection sensor and SG90 servo motor
+   https://robu.in/product/ir-infrared-obstacle-avoidance-sensor-module; https://robu.in/product/towerpro-sg90-9g-mini-servo-9-gram
+   
+   IR sensor OUT pin --> PIN8 of Arduino Nano
+   Servo signal pin --> PIN9 of Arduino Nano */
+
 #include <Servo.h>
 Servo motor;
 int IRSensor = 8;
