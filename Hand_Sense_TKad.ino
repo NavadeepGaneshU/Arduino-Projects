@@ -1,11 +1,9 @@
-/* Program for hand sanatizer system using 
-IR hand detection sensor + Temperature 
-detection simulation in TinkerCAD*/
+/* Program for hand sanatizer system using IR hand detection sensor + Temperature detection simulation in TinkerCAD */
 
 #include <Servo.h>    //library definitions
 Servo motor1;
 Servo motor2;
-int IRSensor = 8;   //IR sensor input
+int IRSensor = 8;     //IR sensor input
 
 int normalTemp = 0;   //set threshold body temperature
 int celsius = 0;
@@ -13,9 +11,9 @@ int fahrenheit = 0;
 
 void setup()
 {
-  pinMode(A0, INPUT); //TMP36 sensor
-  motor1.attach(9);   //sanitizer servo
-  motor2.attach(11);  //flip-gate servo
+  pinMode(A0, INPUT);   //TMP36 sensor
+  motor1.attach(9);     //sanitizer servo
+  motor2.attach(11);    //flip-gate servo
   
   Serial.begin(9600);
   
@@ -37,7 +35,7 @@ void loop()
   Serial.print(fahrenheit);
   Serial.println(" F");
   
-  if(celsius <= normalTemp) //detcted temperature < normal?
+  if(celsius <= normalTemp)   //detcted temperature < normal?
   {
     motor2.write(0);
     delay(5000);
